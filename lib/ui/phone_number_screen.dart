@@ -48,26 +48,30 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // 0xFF18222D
     return Scaffold(
       backgroundColor: AppColor.white,
       body: Column(
         children: [
           Spacer(),
           Expanded(
-            child: ListView(
-              children: [
-                PhoneNumberWidget(
-                  selectedCountry: selectedCountry,
-                  phoneCodeController: phoneCodeController,
-                  phoneNumberController: phoneNumberController,
-                  phoneCodeFocusNode: phoneCodeFocusNode,
-                  phoneNumberFocusNode: phoneNumberFocusNode,
-                  showCountries: _showCountries,
-                  onPhoneCodeChanged: _onPhoneCodeChanged,
-                  onPhoneNumberChanged: _onPhoneNumberChanged,
-                ),
-              ],
+            child: Center(
+              child: ListView(
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  PhoneNumberWidget(
+                    selectedCountry: selectedCountry,
+                    phoneCodeController: phoneCodeController,
+                    phoneNumberController: phoneNumberController,
+                    phoneCodeFocusNode: phoneCodeFocusNode,
+                    phoneNumberFocusNode: phoneNumberFocusNode,
+                    showCountries: _showCountries,
+                    onPhoneCodeChanged: _onPhoneCodeChanged,
+                    onPhoneNumberChanged: _onPhoneNumberChanged,
+                  ),
+                ],
+              ),
             ),
           ),
           Spacer(),
