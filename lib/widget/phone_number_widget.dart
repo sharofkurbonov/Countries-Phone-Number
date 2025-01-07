@@ -14,6 +14,7 @@ class PhoneNumberWidget extends StatelessWidget {
   final FocusNode phoneNumberFocusNode;
   final Function() showCountries;
   final Function(String text) onPhoneCodeChanged;
+  final Function(String text) onPhoneNumberChanged;
 
   const PhoneNumberWidget({
     super.key,
@@ -24,6 +25,7 @@ class PhoneNumberWidget extends StatelessWidget {
     required this.phoneNumberFocusNode,
     required this.showCountries,
     required this.onPhoneCodeChanged,
+    required this.onPhoneNumberChanged,
   });
 
   @override
@@ -147,6 +149,7 @@ class PhoneNumberWidget extends StatelessWidget {
                         phoneCodeController.text += value;
                         phoneCodeFocusNode.requestFocus();
                       }
+                      onPhoneNumberChanged(phoneNumberController.text);
                     },
                     inputFormatters: [
                       customPhoneFormatter(selectedCountry.phoneFormat),

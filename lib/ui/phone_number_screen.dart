@@ -1,10 +1,13 @@
 import 'dart:convert';
 
+import 'package:countries_phone_number/constants/app_color.dart';
+import 'package:countries_phone_number/constants/app_style.dart';
 import 'package:countries_phone_number/dialog/countries_dialog.dart';
 import 'package:countries_phone_number/model/country_model.dart';
 import 'package:countries_phone_number/widget/phone_number_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PhoneNumberScreen extends StatefulWidget {
   final String country;
@@ -34,6 +37,9 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
   final FocusNode phoneCodeFocusNode = FocusNode();
   final FocusNode phoneNumberFocusNode = FocusNode();
 
+  String phoneNumber = "";
+  bool isValid = false;
+
   @override
   void initState() {
     loadCountries();
@@ -44,21 +50,54 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF18222D),
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            PhoneNumberWidget(
-              selectedCountry: selectedCountry,
-              phoneCodeController: phoneCodeController,
-              phoneNumberController: phoneNumberController,
-              phoneCodeFocusNode: phoneCodeFocusNode,
-              phoneNumberFocusNode: phoneNumberFocusNode,
-              showCountries: _showCountries,
-              onPhoneCodeChanged: _onPhoneCodeChanged,
+      body: Column(
+        children: [
+          Spacer(),
+          Expanded(
+            child: ListView(
+              children: [
+                PhoneNumberWidget(
+                  selectedCountry: selectedCountry,
+                  phoneCodeController: phoneCodeController,
+                  phoneNumberController: phoneNumberController,
+                  phoneCodeFocusNode: phoneCodeFocusNode,
+                  phoneNumberFocusNode: phoneNumberFocusNode,
+                  showCountries: _showCountries,
+                  onPhoneCodeChanged: _onPhoneCodeChanged,
+                  onPhoneNumberChanged: _onPhoneNumberChanged,
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          Spacer(),
+          Text(
+            phoneNumber,
+            style: AppStyle.w500s16h22White,
+          ),
+          GestureDetector(
+            onTap: _send,
+            child: Container(
+              height: 56.h,
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(
+                horizontal: 16.w,
+                vertical: 24.h,
+              ),
+              decoration: BoxDecoration(
+                color: isValid ? Colors.blue : Colors.grey.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+              child: Center(
+                child: Text(
+                  "Continue",
+                  style: AppStyle.w500s16h22White.copyWith(
+                    color: isValid ? AppColor.white : AppColor.grey,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -88,7 +127,11 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
 
   void _onPhoneCodeChanged(String value) {
     try {
-      selectedCountry = countries.firstWhere((country) => country.phoneCode == value);
+      if (value == "+1" || value == "+7") {
+        selectedCountry = countries.where((country) => country.phoneCode == value).elementAt(1);
+      } else {
+        selectedCountry = countries.firstWhere((country) => country.phoneCode == value);
+      }
       phoneNumberFocusNode.requestFocus();
     } catch (e) {
       selectedCountry = CountryModel(
@@ -99,5 +142,22 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
       );
     }
     setState(() {});
+  }
+
+  void _onPhoneNumberChanged(String value) {
+    if (value.isNotEmpty) {
+      isValid = true;
+    } else {
+      isValid = false;
+      phoneNumber = "";
+    }
+    setState(() {});
+  }
+
+  void _send() {
+    if (isValid) {
+      phoneNumber = phoneCodeController.text + phoneNumberController.text.replaceAll(" ", "");
+      setState(() {});
+    }
   }
 }

@@ -23,6 +23,10 @@ TextInputFormatter customPhoneFormatter(String phoneFormat) {
       }
     }
 
+    if (textIndex < text.length) {
+      result += text.substring(textIndex);
+    }
+
     return TextEditingValue(
       text: result,
       selection: TextSelection.collapsed(offset: result.length),
