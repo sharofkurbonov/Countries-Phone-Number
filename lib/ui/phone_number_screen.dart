@@ -48,8 +48,9 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // 0xFF18222D
     return Scaffold(
-      backgroundColor: Color(0xFF18222D),
+      backgroundColor: AppColor.white,
       body: Column(
         children: [
           Spacer(),
@@ -72,7 +73,9 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
           Spacer(),
           Text(
             phoneNumber,
-            style: AppStyle.w500s16h22White,
+            style: AppStyle.w500s16h22White.copyWith(
+              color: AppColor.black,
+            ),
           ),
           GestureDetector(
             onTap: _send,
@@ -84,7 +87,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                 vertical: 24.h,
               ),
               decoration: BoxDecoration(
-                color: isValid ? Colors.blue : Colors.grey.withValues(alpha: 0.2),
+                color: isValid ? Colors.blue : Colors.grey.withValues(alpha: 0.4),
                 borderRadius: BorderRadius.circular(12.r),
               ),
               child: Center(

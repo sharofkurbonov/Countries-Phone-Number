@@ -33,8 +33,15 @@ class PhoneNumberWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        horizontal: 16.w,
+      margin: EdgeInsets.symmetric(
+        horizontal: 24.w,
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: AppColor.grey,
+          width: 0.5.w,
+        ),
+        borderRadius: BorderRadius.circular(8.r),
       ),
       child: Column(
         children: [
@@ -47,7 +54,7 @@ class PhoneNumberWidget extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 border: Border(
-                  top: BorderSide(
+                  bottom: BorderSide(
                     color: AppColor.grey,
                     width: 0.5.w,
                   ),
@@ -65,27 +72,21 @@ class PhoneNumberWidget extends StatelessWidget {
                   Text(
                     selectedCountry.name,
                     style: AppStyle.w500s16h19Black.copyWith(
-                      color: AppColor.blue,
+                      color: AppColor.grey,
                     ),
                   ),
+                  Spacer(),
+                  Icon(
+                    size: 24.w,
+                    Icons.keyboard_arrow_down,
+                    color: AppColor.grey,
+                  )
                 ],
               ),
             ),
           ),
-          Container(
+          SizedBox(
             height: 54.h,
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  color: AppColor.grey,
-                  width: 0.5.w,
-                ),
-                bottom: BorderSide(
-                  color: AppColor.grey,
-                  width: 0.5.w,
-                ),
-              ),
-            ),
             child: Row(
               children: [
                 SizedBox(
@@ -118,7 +119,9 @@ class PhoneNumberWidget extends StatelessWidget {
                       }),
                     ],
                     cursorColor: AppColor.blue,
-                    style: AppStyle.w500s16h22White,
+                    style: AppStyle.w500s16h22White.copyWith(
+                      color: AppColor.grey,
+                    ),
                     decoration: InputDecoration(
                       filled: true,
                       counterText: '',
@@ -133,7 +136,6 @@ class PhoneNumberWidget extends StatelessWidget {
                 ),
                 Container(
                   width: 0.5.w,
-                  height: 44.h,
                   color: AppColor.grey,
                 ),
                 Expanded(
@@ -155,12 +157,14 @@ class PhoneNumberWidget extends StatelessWidget {
                       customPhoneFormatter(selectedCountry.phoneFormat),
                     ],
                     cursorColor: AppColor.blue,
-                    style: AppStyle.w500s16h22White,
+                    style: AppStyle.w500s16h22White.copyWith(
+                      color: AppColor.grey,
+                    ),
                     decoration: InputDecoration(
                       filled: true,
                       counterText: '',
                       contentPadding: EdgeInsets.symmetric(horizontal: 24.w),
-                      hintText: selectedCountry.phoneFormat.replaceAll("#", "0"),
+                      hintText: selectedCountry.phoneFormat.replaceAll("#", "_ "),
                       hintStyle: AppStyle.w500s16h22White.copyWith(
                         color: AppColor.grey,
                       ),

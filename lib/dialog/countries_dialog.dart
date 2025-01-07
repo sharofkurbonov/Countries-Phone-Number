@@ -1,6 +1,7 @@
 import 'package:countries_phone_number/constants/app_color.dart';
 import 'package:countries_phone_number/constants/app_style.dart';
 import 'package:countries_phone_number/model/country_model.dart';
+import 'package:countries_phone_number/widget/country_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -46,7 +47,7 @@ class _CountriesDialogState extends State<CountriesDialog> {
     return Container(
       height: MediaQuery.of(context).size.height * 0.9,
       decoration: BoxDecoration(
-        color: Color(0xFF18222D),
+        color: AppColor.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16.r),
           topRight: Radius.circular(16.r),
@@ -71,7 +72,9 @@ class _CountriesDialogState extends State<CountriesDialog> {
             child: TextField(
               focusNode: currentFocus,
               controller: searchController,
-              style: AppStyle.w500s16h22White,
+              style: AppStyle.w500s16h22White.copyWith(
+                color: AppColor.black,
+              ),
               decoration: InputDecoration(
                 hintText: "Search",
                 hintStyle: AppStyle.w500s16h22White.copyWith(
@@ -115,55 +118,15 @@ class _CountriesDialogState extends State<CountriesDialog> {
                     ),
                     itemCount: searchResult.length,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16.w,
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            if (currentFocus.hasFocus) {
-                              currentFocus.unfocus();
-                            }
-                            Navigator.pop(context);
-                            widget.onChange(searchResult[index]);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 12.h,
-                              horizontal: 4.w,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: AppColor.grey,
-                                  width: 0.5.w,
-                                ),
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  searchResult[index].flag,
-                                  style: AppStyle.w500s16h22White,
-                                ),
-                                SizedBox(
-                                  width: 6.w,
-                                ),
-                                Text(
-                                  searchResult[index].name,
-                                  style: AppStyle.w500s16h22White,
-                                ),
-                                Spacer(),
-                                Text(
-                                  searchResult[index].phoneCode,
-                                  style: AppStyle.w500s16h22White.copyWith(
-                                    color: AppColor.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                      return CountryItemWidget(
+                        country: searchResult[index],
+                        onTap: () {
+                          if (currentFocus.hasFocus) {
+                            currentFocus.unfocus();
+                          }
+                          Navigator.pop(context);
+                          widget.onChange(searchResult[index]);
+                        },
                       );
                     },
                   )
@@ -173,55 +136,15 @@ class _CountriesDialogState extends State<CountriesDialog> {
                     ),
                     itemCount: widget.countries.length,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16.w,
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            if (currentFocus.hasFocus) {
-                              currentFocus.unfocus();
-                            }
-                            Navigator.pop(context);
-                            widget.onChange(widget.countries[index]);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 12.h,
-                              horizontal: 4.w,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: AppColor.grey,
-                                  width: 0.5.w,
-                                ),
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  widget.countries[index].flag,
-                                  style: AppStyle.w500s16h22White,
-                                ),
-                                SizedBox(
-                                  width: 6.w,
-                                ),
-                                Text(
-                                  widget.countries[index].name,
-                                  style: AppStyle.w500s16h22White,
-                                ),
-                                Spacer(),
-                                Text(
-                                  widget.countries[index].phoneCode,
-                                  style: AppStyle.w500s16h22White.copyWith(
-                                    color: AppColor.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                      return CountryItemWidget(
+                        country: widget.countries[index],
+                        onTap: () {
+                          if (currentFocus.hasFocus) {
+                            currentFocus.unfocus();
+                          }
+                          Navigator.pop(context);
+                          widget.onChange(widget.countries[index]);
+                        },
                       );
                     },
                   ),
