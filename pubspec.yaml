@@ -1,0 +1,40 @@
+name: countries_phone_number
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  flutter_screenutil: ^5.9.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/font/
+    - assets/countries.json
+
+  fonts:
+    - family: SFProDisplay
+      fonts:
+        - asset: assets/font/SF-Pro-Display-Light.ttf
+          weight: 300
+        - asset: assets/font/SF-Pro-Display-Regular.ttf
+          weight: 400
+        - asset: assets/font/SF-Pro-Display-Medium.ttf
+          weight: 500
+        - asset: assets/font/SF-Pro-Display-Semibold.ttf
+          weight: 600
+        - asset: assets/font/SF-Pro-Display-Bold.ttf
+          weight: 700
