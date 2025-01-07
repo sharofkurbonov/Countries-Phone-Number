@@ -69,13 +69,16 @@ class PhoneNumberWidget extends StatelessWidget {
                   SizedBox(
                     width: 6.w,
                   ),
-                  Text(
-                    selectedCountry.name,
-                    style: AppStyle.w500s16h19Black.copyWith(
-                      color: AppColor.grey,
+                  Expanded(
+                    child: Text(
+                      selectedCountry.name,
+                      style: AppStyle.w500s16h19Black.copyWith(
+                        color: AppColor.grey,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Spacer(),
                   Icon(
                     size: 24.w,
                     Icons.keyboard_arrow_down,

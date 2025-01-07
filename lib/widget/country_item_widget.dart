@@ -44,13 +44,16 @@ class CountryItemWidget extends StatelessWidget {
               SizedBox(
                 width: 6.w,
               ),
-              Text(
-                country.name,
-                style: AppStyle.w500s16h22White.copyWith(
-                  color: AppColor.black,
+              Expanded(
+                child: Text(
+                  country.name,
+                  style: AppStyle.w500s16h22White.copyWith(
+                    color: AppColor.black,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Spacer(),
               Text(
                 country.phoneCode,
                 style: AppStyle.w500s16h22White.copyWith(
