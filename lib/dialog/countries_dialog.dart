@@ -167,6 +167,20 @@ class _CountriesDialogState extends State<CountriesDialog> {
         searchResult.add(countryDetail);
       }
     }
+
+    searchResult.sort((a, b) {
+      bool aStartsWith = a.name.toUpperCase().startsWith(text.toUpperCase());
+      bool bStartsWith = b.name.toUpperCase().startsWith(text.toUpperCase());
+
+      if (aStartsWith && !bStartsWith) {
+        return -1;
+      } else if (!aStartsWith && bStartsWith) {
+        return 1;
+      } else {
+        return a.name.compareTo(b.name);
+      }
+    });
+
     setState(() {});
   }
 }
